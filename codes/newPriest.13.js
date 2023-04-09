@@ -8,12 +8,10 @@ setInterval(function(){
 	
     //If we have a target to heal, heal them. Otherwise attack a target.
     if (lowest_health != null && lowest_health.health_ratio < 0.8) {
-        if (distance_to_point(lowest_health.real_x, lowest_health.real_y) < character.range) {
+        
             heal(lowest_health);
-        }
-        else {
-            move_to_target(lowest_health);
-        }
+        
+  
     }
     else {
 

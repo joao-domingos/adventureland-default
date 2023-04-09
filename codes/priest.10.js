@@ -1,63 +1,84 @@
+// Hey there!
+// This is CODE, lets you control your character with code.
+// If you don't know how to code, don't worry, It's easy.
+// Just set attack_mode to true and ENGAGE!
+
+var attack_mode=false
+
+setInterval(function(){
+
+	use_hp_or_mp();
+	loot();
+
+	if(character.rip || is_moving(character)) return;
+
+    var lowest_health = lowest_health_partymember();
+
+    //If we have a target to heal, heal them. Otherwise attack a target.
+    if (lowest_health != null && lowest_health.health_ratio < 0.8) {
+        if (distance_to_point(lowest_health.real_x, lowest_health.real_y) < character.range) {
+            heal(lowest_health);
+        }
+        else {
+            move_to_target(lowest_health);
+        }
+    }
 
 
-var monster_targets =  ["goo", "snake"];
-async function attackLoop() {
-    let delay = 15;
-    try { 
-	if(parent.is_disabled(character) == undefined){
-	if(!character.rip){
-	if(character.hp < character.max_hp - character.heal){
-		await heal(character);
-	}
-            var target = find_viable_targets()[0];
-	    if(is_in_range(target)){
-            await attack(target);
-                    delay = ms_to_next_skill('attack');
+},1000/4); // Loops every 1/4 seconds.
+
+function lowest_health_partymember() {
+    var party = [];
+    if (parent.party_list.length > 0) {
+		for(id in parent.party_list)
+		{
+			var member = parent.party_list[id];
+			
+			var entity = parent.entities[member];
+			
+			if(member == character.name)
+			{
+				entity = character;
+			}
+			
+			if(entity != null)
+			{
+				party.push({name: member, entity: entity});
 			}
 		}
-        }
-    } catch (e) {
-        console.error(e)
     }
-    setTimeout(attackLoop, delay)
-}
-attackLoop()
+	else
+	{
+		//Add Self to Party Array
+		party.push(
+		{
+			name: character.name,
+			entity: character
+		});
+	}
 
-function find_viable_targets() {
-    var monsters = Object.values(parent.entities).filter(
-        mob => (mob.target == null || // This
-            parent.party_list.includes(mob.target) ||
-            mob.target == character.name
-        ) && // And this
-        (mob.type == "monster" &&
-            (parent.party_list.includes(mob.target) ||
-                mob.target == character.name)
-        ) || // Or This
-        monster_targets.includes(mob.mtype)
-    );
-    for (id in monsters) {
-        var monster = monsters[id];
-        if (parent.party_list.includes(monster.target) || monster.target == character.name) {
-            monster.targeting_party = 1;
-        } else {
-            monster.targeting_party = 0;
+    //Populate health percentages
+    for (id in party) {
+        var member = party[id];
+        if (member.entity != null) {
+            member.entity.health_ratio = member.entity.hp / member.entity.max_hp;
+        }
+        else {
+            member.health_ratio = 1;
         }
     }
-    // Order monsters by whether they're attacking us, then by distance.
-    monsters.sort(function(current, next) {
-        if (current.targeting_party > next.targeting_party) {
-            return -1;
-        }
-        var dist_current = distance(character, current);
-        var dist_next = distance(character, next);
-        // Else go to the 2nd item
-        if (dist_current < dist_next) {
-            return -1;
-        } else if (dist_current > dist_next) {
-            return 1
-        } else {
-            return 0;
-        }
+	
+    //Order our party array by health percentage
+    party.sort(function (current, next) {
+        return current.entity.health_ratio - next.entity.health_ratio;
     });
-    return monsters;
+	
+
+    //Return the lowest health
+    return party[0].entity;
+}
+
+//Returns the distance of the character to a point in the world.
+function distance_to_point(x, y) {
+    return Math.sqrt(Math.pow(character.real_x - x, 2) + Math.pow(character.real_y - y, 2));
 }
