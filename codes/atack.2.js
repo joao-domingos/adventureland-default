@@ -8,10 +8,10 @@ setInterval(function(){
 
     if(!attack_mode || character.rip || is_moving(character)) return;
 
-    var target=get_targeted_monster();
+    var target=["crabx"];
     if(!target)
     {
-        target=get_nearest_monster({min_xp:100,max_att:120});
+        target=get_target_of(["idkhtcwarr"]);
         if(target) change_target(target);
         else
         {
