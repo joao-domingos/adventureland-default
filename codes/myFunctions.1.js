@@ -4,7 +4,7 @@ var farmer_gold_keep = 10000;
 var leader = 'idkhtcmage';
 let party_list = ['idkhtcmerch', 'idkhtcmage', 'idkhtcprst', 'idkhtcwarr'];
 //phat_targets are priority
-let phat_targets = ['phoenix'];
+let phat_targets = [];
 let monster_list = ['crabx'];
 var invites_sent = [true, false, false, false];
 const send_whitelist = ['tracker'];
