@@ -37,7 +37,7 @@ setInterval(async function(){
 	
 	//buyPotions(100,100);
 	handleParty();
-	if(checkChar("jmanmage")==1){
+	if(checkChar("idkhtcmage")==1){
 		transferPots();
 	}
 	
