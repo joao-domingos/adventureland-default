@@ -2,7 +2,7 @@
 //Changing code from 'myFunctions.1.js -> 'mainfunctions.2.js' with async functions
 
 //Char variables
-let party_leader = "jmanmage";
+let party_leader = "idkhtcwarr";
 
 function testing() {
 	game_log("TESTING SUCCESS!");

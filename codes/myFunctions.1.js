@@ -1,8 +1,8 @@
 //buy("hpot0",9000);buy("mpot0",9000);
 var farmer_gold_keep = 10000;
 // character entities
-var leader = 'jmanmage';
-let party_list = ['jusMerchant', 'jmanmage', 'juspriest', 'juswar'];
+var leader = 'idkhtcwarr';
+let party_list = ['idkhtcmerch', 'idkhtcwarr', 'idkhtcprst', 'idkhtcmage'];
 //phat_targets are priority
 let phat_targets = ['goldenbat','snowman','cutebee','phoenix','mvampire','pinkgoo'];
 let monster_list = ['iceroamer','osnake','snake','bat','minimush','poisio','arcticbee','booboo'];
@@ -51,7 +51,7 @@ function item_location(name) {
 	return -1;
 }
 
-//Sends all items/gold to jusMerchant
+//Sends all items/gold to idkhtcmerch
 function send_item_merchant() {
 	//Only executes if merchant in range
 	if(checkChar(party_list[0])==1){
@@ -69,23 +69,23 @@ function send_item_merchant() {
 			if(character.items[i]) {
 				if(send_whitelist.includes(character.items[i].name)) continue;
 				var item_count = character.items[i].q
-				send_item("jusMerchant",i,item_count);
+				send_item("idkhtcmerch",i,item_count);
 				sleep(100);
 			}
 		}
 		if(character.gold > farmer_gold_keep) {
-			send_gold("jusMerchant",(character.gold-farmer_gold_keep));
+			send_gold("idkhtcmerch",(character.gold-farmer_gold_keep));
 		}
 	}
 }
 
-//Handles party functions, jusMerchant as leader
+//Handles party functions, idkhtcmerch as leader
 function handleParty() {
 	//If party members != 4, reset invite array
 	if (Object.keys(parent.party).length != 4) {
 		var invites_sent = [true, false, false, false];
 	}
-	//For party leader jusMerchant to use
+	//For party leader idkhtcmerch to use
 	if (character.name == party_list[0]) {
 		//Sends out invites
 		if (Object.keys(parent.party).length < party_list.length) {
@@ -188,7 +188,7 @@ function followBot() {
     
     //if(is_moving(character)) return;
 	if(!assist_mode) return;
-	if(checkChar("jmanmage")==1 && assist_mode) {
+	if(checkChar("idkhtcwarr")==1 && assist_mode) {
         let leader_entity = get_player(leader);
         if (!target && distance(character, leader_entity) >= 25) {
             move(
@@ -196,7 +196,7 @@ function followBot() {
                 character.real_y+(leader_entity.y-character.real_y) / 2
             );
         }
-    } else if (checkChar("jmanmage")==0 && assist_mode) {
+    } else if (checkChar("idkhtcwarr")==0 && assist_mode) {
         if(!is_moving(character)) {
 			if(is_moving(character)) return;
 			smart_move(get("leadercoords"));
