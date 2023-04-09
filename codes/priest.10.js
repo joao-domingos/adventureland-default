@@ -3,6 +3,7 @@ var monster_targets = ["crabx"];
 
 setInterval(function(){
 
+	load_code("sendGoldItem");
 	use_hp_or_mp();
 	loot();
 

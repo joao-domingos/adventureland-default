@@ -16,7 +16,7 @@ setInterval(function(){
 	if(!target)
 	{
 		target=get_target_of({id:"idkhtcwarr"});
-		if(target) change_target(target);
+		if(target) change_target({id:"idkhtcwarr"});
 		else
 		{
 			set_message("No Monsters");
