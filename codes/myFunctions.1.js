@@ -1,11 +1,11 @@
 //buy("hpot0",9000);buy("mpot0",9000);
 var farmer_gold_keep = 10000;
 // character entities
-var leader = 'idkhtcwarr';
-let party_list = ['idkhtcmerch', 'idkhtcwarr', 'idkhtcprst', 'idkhtcmage'];
+var leader = 'idkhtcmage';
+let party_list = ['idkhtcmerch', 'idkhtcmage', 'idkhtcprst', 'idkhtcwarr'];
 //phat_targets are priority
-let phat_targets = ['goldenbat','snowman','cutebee','phoenix','mvampire','pinkgoo'];
-let monster_list = ['iceroamer','osnake','snake','bat','minimush','poisio','arcticbee','booboo'];
+let phat_targets = ['phoenix'];
+let monster_list = ['crabx'];
 var invites_sent = [true, false, false, false];
 const send_whitelist = ['tracker'];
 const sell_list = ['hpbelt'];
@@ -188,7 +188,7 @@ function followBot() {
     
     //if(is_moving(character)) return;
 	if(!assist_mode) return;
-	if(checkChar("idkhtcwarr")==1 && assist_mode) {
+	if(checkChar("idkhtcmage")==1 && assist_mode) {
         let leader_entity = get_player(leader);
         if (!target && distance(character, leader_entity) >= 25) {
             move(
@@ -196,7 +196,7 @@ function followBot() {
                 character.real_y+(leader_entity.y-character.real_y) / 2
             );
         }
-    } else if (checkChar("idkhtcwarr")==0 && assist_mode) {
+    } else if (checkChar("idkhtcmage")==0 && assist_mode) {
         if(!is_moving(character)) {
 			if(is_moving(character)) return;
 			smart_move(get("leadercoords"));
