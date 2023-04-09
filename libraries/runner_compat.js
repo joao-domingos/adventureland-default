@@ -67,15 +67,11 @@ function in_attack_range(target) // also works for priests/heal
 	return false;
 }
 
-function is_pvp(){return in_pvp()}
-
-function is_player(e){return is_character(e);}
-
 function destroy_item(i){destroy(i)}
 
 character.on("stacked",function(){ on_combined_damage(); });
 character.on("death",function(){ handle_death(); });
-character.on("cm",function(data){ on_cm(data.name,data.message) });
+character.one("cm",function(data){ on_cm(data.name,data.message) });
 
 // [06/03/19]: doneify aimed to add a completion callback to every function
 // such as buy("shoes").done(function(success_flag,data){})
