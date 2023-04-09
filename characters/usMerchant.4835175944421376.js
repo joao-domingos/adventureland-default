@@ -1,7 +1,7 @@
 // autorerun
 var attack_mode=false
 
-const upgrade_whitelist = ['pickaxe','rod'];
+const upgrade_whitelist = ['rod'];
 
 
 map_key("5","snippet","transferPots()");
@@ -21,19 +21,11 @@ setInterval(function(){
 	}
 	if(!attack_mode || character.rip || is_moving(character)) return;
 
-	/**
-	//IDEA: Add FISH/MINE
-	if(off cooldown(fish)
-  		do_fish()
-	else if( off cooldown(mine)
-		do_mine()
-	**/
-
 },1000/4); // Loops every 1/4 seconds.
 setInterval(async function(){
 	//Runs item upgrade/compound loops
-	itemUpgrade();
-	itemCompound();
+	//itemUpgrade();
+	//itemCompound();
 	
 	//buyPotions(100,100);
 	handleParty();
@@ -46,13 +38,9 @@ setInterval(async function(){
 
 //Runs walking loop
 setInterval(async function(){
-	//mine();
-	if(item_quantity('gem0') > 0) {
-		await itemExchange();
-		return;
-	}
-	walkLoop();
-},900000);
+	//fish();
+	//walkLoop();
+},9000);
 //1800000
 
 
@@ -60,13 +48,9 @@ async function walkLoop() {
 	
 	console.log("STARTING walkLoop()");
 	//closes stand
-	await parent.close_merchant(0);
-	await sleep(250);
-	await smart_move(get("leadercoords"));
-	await sleep(60000);
-	await returnTown();
-	await sleep(250);
-	await parent.open_merchant(0);
+	await move(get("leadercoords"));
+	await sleep(6000);
+	await smart_move(-53, -54);
 	await sleep(250);
 	console.log("FINISHED walkLoop()");
 	selljunk();
@@ -193,7 +177,7 @@ async function mine() {
     } catch (e) {
         console.error(e)
     }
-    //setTimeout(async () => { mine() }, 1000);
+
 }
 
 async function fish() {
