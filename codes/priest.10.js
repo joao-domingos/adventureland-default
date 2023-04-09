@@ -1,11 +1,6 @@
-function ms_to_next_skill(skill) {
-    const next_skill = parent.next_skill[skill]
-    if (next_skill == undefined) return 0
-    const ms = parent.next_skill[skill].getTime() - Date.now() - Math.min(...parent.pings)
-    return ms < 0 ? 0 : ms
-}
 
-var monster_targets =  ["goo"];
+
+var monster_targets =  ["goo", "snake"];
 async function attackLoop() {
     let delay = 15;
     try { 
@@ -26,7 +21,7 @@ async function attackLoop() {
     }
     setTimeout(attackLoop, delay)
 }
-attackLoop())
+attackLoop()
 
 function find_viable_targets() {
     var monsters = Object.values(parent.entities).filter(
